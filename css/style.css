@@ -13,10 +13,10 @@
 /* Container styles */
 .containerIc {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 1vh;
+  min-height: 7vh;
   background: var(--bg);
 }
 
@@ -29,8 +29,8 @@
 .containerIc ul li {
   position: relative;
   list-style: none;
-  width: 25%;
-  height: auto;
+  width: 4rem;
+  height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
