@@ -40,9 +40,9 @@ margin: 0;
 color: #989da4
 }
 
-.powered a:hover {
+/* .powered a:hover {
 text decoration: underline;
-}
+} */
 
 .powered a:visited {
 color: #989da4;
@@ -81,7 +81,7 @@ font-weight:200;
 color: #ea2a2e;
 font-size: 22px;
 margin: 0;
-}
+} 
 
 .carousel-caption hr {
 margin: 13px 0;
@@ -254,7 +254,7 @@ padding-top: 40px;
     height: 633px;
     background-color: #060607;
   }
-
+}
 
 @media (max-width: 767px) {
   .carousel-caption p {
