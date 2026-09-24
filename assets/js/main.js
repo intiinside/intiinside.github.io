@@ -77,6 +77,127 @@ function printCv() {
 
 $('#print-btn').addEventListener('click', printCv)
 
+/* ---------- Visor de certificados (PDF en modal) ----------
+   Dibuja el PDF con PDF.js en <canvas>: funciona igual en escritorio,
+   Android e iOS (los navegadores móviles no muestran PDF en <iframe>). */
+const PDFJS = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/legacy/build/'
+let pdfjsLib = null
+
+const pdfv = $('#pdfv')
+const pdfvBody = $('#pdfv-body')
+const pdfvTitle = $('#pdfv-title')
+const pdfvOpen = $('#pdfv-open')
+let pdfDoc = null
+let pdfZoom = 1
+let pdfToken = 0
+let pdfLastFocus = null
+
+async function loadPdfjs() {
+    if (!pdfjsLib) {
+        pdfjsLib = await import(PDFJS + 'pdf.min.mjs')
+        pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.mjs'
+    }
+    return pdfjsLib
+}
+
+function pdfMessage(html) {
+    pdfvBody.innerHTML = `<div class="pdfv__msg">${html}</div>`
+}
+
+async function renderPdf() {
+    const token = ++pdfToken
+    const doc = pdfDoc
+    const width = pdfvBody.clientWidth - parseFloat(getComputedStyle(pdfvBody).paddingLeft) * 2
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const frag = document.createDocumentFragment()
+
+    for (let n = 1; n <= doc.numPages; n++) {
+        const page = await doc.getPage(n)
+        if (token !== pdfToken) return
+        const base = page.getViewport({ scale: 1 })
+        const cssScale = (width / base.width) * pdfZoom
+        const viewport = page.getViewport({ scale: cssScale * dpr })
+        const canvas = document.createElement('canvas')
+        canvas.className = 'pdfv__page'
+        canvas.width = Math.floor(viewport.width)
+        canvas.height = Math.floor(viewport.height)
+        canvas.style.width = Math.floor(base.width * cssScale) + 'px'
+        canvas.style.height = Math.floor(base.height * cssScale) + 'px'
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise
+        if (token !== pdfToken) return
+        frag.appendChild(canvas)
+    }
+    pdfvBody.replaceChildren(frag)
+}
+
+async function openPdf(url, title) {
+    pdfLastFocus = document.activeElement
+    pdfvTitle.textContent = title || 'Certificado'
+    pdfvOpen.href = url
+    pdfZoom = 1
+    pdfDoc = null
+    pdfMessage('<span class="pdfv__spinner" aria-label="Cargando"></span>')
+    pdfv.hidden = false
+    root.classList.add('is-locked')
+    pdfvBody.focus()
+
+    const token = ++pdfToken
+    try {
+        const lib = await loadPdfjs()
+        const doc = await lib.getDocument(url).promise
+        if (token !== pdfToken || pdfv.hidden) return
+        pdfDoc = doc
+        await renderPdf()
+    } catch (err) {
+        if (token !== pdfToken) return
+        /* p. ej. PDF externo sin CORS: se ofrece abrirlo directamente */
+        pdfMessage(`<p>No se pudo mostrar el certificado aquí.</p>
+                    <a class="btn" href="${url}" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>`)
+    }
+}
+
+function closePdf() {
+    if (pdfv.hidden) return
+    pdfToken++
+    pdfv.hidden = true
+    root.classList.remove('is-locked')
+    pdfvBody.replaceChildren()
+    if (pdfDoc) pdfDoc.destroy()
+    pdfDoc = null
+    if (pdfLastFocus) pdfLastFocus.focus()
+}
+
+function zoomPdf(delta) {
+    if (!pdfDoc) return
+    pdfZoom = Math.min(3, Math.max(.5, +(pdfZoom + delta).toFixed(2)))
+    renderPdf()
+}
+
+document.addEventListener('click', e => {
+    const link = e.target.closest('.cert-link')
+    if (!link || e.metaKey || e.ctrlKey || e.shiftKey) return
+    e.preventDefault()
+    openPdf(link.href, link.dataset.label)
+})
+
+pdfv.addEventListener('click', e => { if (e.target.closest('[data-close]')) closePdf() })
+$('#pdfv-in').addEventListener('click', () => zoomPdf(.25))
+$('#pdfv-out').addEventListener('click', () => zoomPdf(-.25))
+
+document.addEventListener('keydown', e => {
+    if (pdfv.hidden) return
+    if (e.key === 'Escape') { e.preventDefault(); closePdf() }
+    else if (e.key === '+' || e.key === '=') zoomPdf(.25)
+    else if (e.key === '-') zoomPdf(-.25)
+})
+
+let resizeTimer = null
+window.addEventListener('resize', () => {
+    if (pdfv.hidden || !pdfDoc) return
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(renderPdf, 200)
+})
+
 /* ---------- Paleta de comandos (⌘K / Ctrl+K) ---------- */
 const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)
 if (!isMac) $('#cmdk-btn').innerHTML = '<kbd>Ctrl</kbd><kbd>K</kbd>'
@@ -120,7 +241,7 @@ const commands = [
         group: 'Certificados',
         label: link.dataset.label || 'Certificado',
         hint: 'pdf',
-        run: () => link.click() /* reutiliza el onclick del enlace: abre el popup */
+        run: () => link.click() /* abre el visor modal */
     }))
 ]
 
@@ -192,6 +313,7 @@ cmdkList.addEventListener('click', e => {
 cmdk.addEventListener('click', e => { if (e.target.hasAttribute('data-close')) closeCmdk() })
 
 document.addEventListener('keydown', e => {
+    if (!pdfv.hidden) return /* el visor de PDF maneja su propio teclado */
     const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName)
 
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
