@@ -26,36 +26,35 @@
     <div id="particles-js" aria-hidden="true"></div>
     <div class="spotlight" aria-hidden="true"></div>
 
+    <!-- Botón de menú (celular / tablet) -->
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="i-menu"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="i-close"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="nav-overlay" data-nav-close aria-hidden="true"></div>
+
     <div class="shell">
-        <!-- ============ COLUMNA FIJA ============ -->
-        <header class="aside">
-            <div>
-                <div class="identity">
-                    <div class="avatar">
-                        <img src="assets/img/inti.jpg" alt="Foto de Inti Poaquiza" width="96" height="96" fetchpriority="high">
-                    </div>
-                    <div class="identity__text">
-                        <h1 class="aside__name"><a href="#">Inti Poaquiza</a></h1>
-                        <h2 class="aside__role">Full-stack &amp; DevOps</h2>
-                    </div>
+        <!-- ============ BARRA LATERAL FIJA ============ -->
+        <header class="aside" id="sidebar">
+            <div class="profile">
+                <div class="avatar">
+                    <img src="assets/img/inti.jpg" alt="Foto de Inti Poaquiza" width="120" height="120" fetchpriority="high">
                 </div>
-                <p class="status"><span class="status__dot"></span> CEO · INTIINSIDE SAS · RUC: 0291526835001</p>
-                <p class="aside__pitch">
-                    ☀️🌾 Amante de la ciencia, filosofía, tecnología, andinismo y música andina.
-                </p>
-
-                <nav class="toc" aria-label="Secciones">
-                    <ul>
-                        <li><a href="#sobre-mi" class="toc__link"><span class="toc__line"></span><span class="toc__text">Sobre mí</span></a></li>
-                        <li><a href="#experiencia" class="toc__link"><span class="toc__line"></span><span class="toc__text">Experiencia</span></a></li>
-                        <li><a href="#proyectos" class="toc__link"><span class="toc__line"></span><span class="toc__text">Proyectos</span></a></li>
-                        <li><a href="#formacion" class="toc__link"><span class="toc__line"></span><span class="toc__text">Formación</span></a></li>
-                        <li><a href="#certificaciones" class="toc__link"><span class="toc__line"></span><span class="toc__text">Certificaciones</span></a></li>
-                    </ul>
-                </nav>
-            </div>
-
-            <div class="aside__footer">
+                <h1 class="aside__name"><a href="#">Inti Poaquiza Azogue</a></h1>
+                <div class="intro">
+                    <p class="status"><span class="status__dot"></span> CEO · INTIINSIDE SAS · RUC: 0291526835001</p>
+                    <h2 class="intro__role">Full-stack &amp; DevOps</h2>
+                    <p class="aside__pitch">
+                        ☀️🌾 Amante de la ciencia, filosofía, tecnología, andinismo y música andina.
+                    </p>
+                    <p class="aside__meta">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+                        Simiátug, Bolívar, Ecuador
+                    </p>
+                    <p class="print-only print-contact">
+                        linkedin.com/in/autorun · t.me/intiinside · youtube.com/@intiinside · facebook.com/AUT0RUN · intiinside.github.io
+                    </p>
+                </div>
                 <ul class="socials" aria-label="Redes sociales">
                     <li><a href="https://www.linkedin.com/in/autorun/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" data-label="LinkedIn">
                         <svg viewBox="0 0 24 24" aria-hidden="true" class="brand"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
@@ -76,14 +75,20 @@
                         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     </a></li>
                 </ul>
+            </div>
 
-                <p class="aside__meta">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-                    Quito, Ecuador
-                </p>
-                <p class="print-only print-contact">
-                    linkedin.com/in/autorun · t.me/intiinside · youtube.com/@intiinside · facebook.com/AUT0RUN · intiinside.github.io
-                </p>
+            <nav class="toc" aria-label="Secciones">
+                <ul>
+                    <li><a href="#home" class="nav-item toc__link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a></li>
+                    <li><a href="#sobre-mi" class="nav-item toc__link"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Sobre mí</span></a></li>
+                    <li><a href="#experiencia" class="nav-item toc__link"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg><span>Experiencia</span></a></li>
+                    <li><a href="#proyectos" class="nav-item toc__link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg><span>Proyectos</span></a></li>
+                    <li><a href="#formacion" class="nav-item toc__link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg><span>Formación</span></a></li>
+                    <li><a href="#certificaciones" class="nav-item toc__link"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/></svg><span>Certificaciones</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="aside__actions">
                 <div class="actions">
                     <button class="btn btn--primary" id="print-btn" type="button">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
@@ -98,7 +103,44 @@
                     </button>
                 </div>
             </div>
+
+            <p class="aside__credits">
+                © Hosted with ❤ on GitHub<br>
+                Support: <a href="mailto:ip@intiinside.com">ip@intiinside.com</a> | Designed by <a href="https://intiinside.com" target="_blank" rel="noopener">intiinside-Tech</a>.
+            </p>
         </header>
+
+        <!-- ============ PORTADA ============ -->
+        <section id="home" class="hero" aria-label="Inicio">
+            <div class="hero__inner">
+                <p class="hero__hello">Hello, I'm</p>
+                <h2 class="hero__name">Inti Curara Poaquiza Azogue!</h2>
+                <p class="hero__role">I'm <span class="typed" data-typed-items="Software Developer, Computer Science Engineer">Software Developer</span></p>
+                <ul class="socials hero__socials" aria-label="Redes sociales">
+                    <li><a href="https://www.linkedin.com/in/autorun/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" data-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="brand"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+                    </a></li>
+                    <li><a href="https://t.me/intiinside" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram" data-label="Telegram">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="brand"><path d="M11.94 0A12 12 0 1 0 24 12 12 12 0 0 0 11.94 0zm5.56 8.16-1.97 9.29c-.14.66-.54.82-1.09.51l-3-2.21-1.45 1.4c-.16.16-.3.3-.61.3l.21-3.05 5.56-5.02c.24-.21-.05-.33-.37-.12l-6.87 4.33-2.96-.92c-.64-.2-.66-.64.14-.95l11.57-4.46c.54-.2 1.01.13.84.9z"/></svg>
+                    </a></li>
+                    <li><a href="https://wa.me/message/FGJ3GYLM2PHCL1" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp" data-label="WhatsApp">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="brand"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.16-3.48-8.41"/></svg>
+                    </a></li>
+                    <li><a href="https://www.youtube.com/@intiinside" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube" data-label="YouTube">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="brand"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+                    </a></li>
+                    <li><a href="https://www.facebook.com/AUT0RUN" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook" data-label="Facebook">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="brand"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07"/></svg>
+                    </a></li>
+                    <li><a href="https://intiinside.com" target="_blank" rel="noopener" aria-label="Sitio web INTIINSIDE" title="intiinside.github.io" data-label="Sitio web INTIINSIDE">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </a></li>
+                </ul>
+            </div>
+            <a href="#sobre-mi" class="hero__next" aria-label="Ir a Sobre mí">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </a>
+        </section>
 
         <!-- ============ CONTENIDO ============ -->
         <main id="contenido" class="content">

@@ -50,7 +50,29 @@ const sectionObserver = new IntersectionObserver(entries => {
     })
 }, { rootMargin: '-30% 0px -60% 0px' })
 
-$$('.content section[id]').forEach(section => sectionObserver.observe(section))
+$$('.hero, .content section[id]').forEach(section => sectionObserver.observe(section))
+
+/* ---------- Portada: texto tipo máquina de escribir ---------- */
+const typed = $('.typed')
+if (typed && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const words = typed.dataset.typedItems.split(',').map(w => w.trim()).filter(Boolean)
+    let word = 0
+    let chars = 0
+    let deleting = false
+
+    const tick = () => {
+        const text = words[word]
+        chars += deleting ? -1 : 1
+        typed.textContent = text.slice(0, chars)
+
+        let delay = deleting ? 45 : 90
+        if (!deleting && chars === text.length) { deleting = true; delay = 1800 }
+        else if (deleting && chars === 0) { deleting = false; word = (word + 1) % words.length; delay = 400 }
+        setTimeout(tick, delay)
+    }
+    typed.textContent = ''
+    setTimeout(tick, 600)
+}
 
 /* ---------- Aparición suave al hacer scroll ---------- */
 const revealTargets = $$('.stats, .item, .card, .cert, .refs, .stack__row')
@@ -76,6 +98,24 @@ function printCv() {
 }
 
 $('#print-btn').addEventListener('click', printCv)
+
+/* ---------- Menú lateral (en celular / tablet se abre con ☰) ---------- */
+const navToggle = $('#nav-toggle')
+
+function setNav(open) {
+    root.classList.toggle('nav-open', open)
+    navToggle.setAttribute('aria-expanded', open)
+    navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú')
+}
+
+navToggle.addEventListener('click', () => setNav(!root.classList.contains('nav-open')))
+$('.nav-overlay').addEventListener('click', () => setNav(false))
+$$('.aside .nav-item').forEach(item => item.addEventListener('click', () => setNav(false)))
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && root.classList.contains('nav-open')) { setNav(false); navToggle.focus() }
+})
+window.matchMedia('(min-width: 1200px)').addEventListener('change', e => { if (e.matches) setNav(false) })
 
 /* ---------- Visor de certificados (PDF en modal) ----------
    Dibuja el PDF con PDF.js en <canvas>: funciona igual en escritorio,
@@ -224,7 +264,7 @@ const commands = [
         group: 'Acciones', label: 'Copiar enlace de este CV', hint: 'url',
         run: () => navigator.clipboard && navigator.clipboard.writeText(location.href.split('#')[0])
     },
-    ...$$('.socials a').map(link => ({
+    ...$$('.aside .socials a').map(link => ({
         group: 'Redes',
         label: link.dataset.label,
         hint: '↗',
