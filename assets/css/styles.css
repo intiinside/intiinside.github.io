@@ -518,6 +518,7 @@ kbd {
 .edu__head h4 span { font-weight: 400; color: var(--text-3); }
 .edu__head .pill { margin-top: 0; }
 .edu__meta { margin-top: 4px; font-size: 13.5px; }
+.edu__reg { font-family: var(--mono); font-size: 12.5px; color: var(--text-2); }
 .edu__courses { margin-top: 10px; display: grid; gap: 4px; }
 .edu__courses li { position: relative; padding-left: 16px; font-size: 13.5px; }
 .edu__courses li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-size: 12px; }
@@ -581,9 +582,6 @@ kbd {
 .cert:hover .cert__main h3 { color: var(--accent); }
 
 /* ---------- Footer ---------- */
-.foot { max-width: 440px; font-size: 13px; color: var(--text-3); padding-bottom: 32px; }
-.foot a { color: var(--text-2); font-weight: 500; }
-.foot a:hover { color: var(--accent); }
 
 /* ---------- Paleta de comandos ---------- */
 .cmdk[hidden] { display: none; }
@@ -689,7 +687,7 @@ html.is-locked, html.is-locked body { overflow: hidden; }
     .aside__meta { justify-content: flex-start; }
     .avatar { width: 58pt; height: 58pt; padding: 0; background: none; }
     .avatar img { border: 0; }
-    #particles-js, .spotlight, .toc, .aside__actions, .actions, .socials, .verify-link, .links, .cmdk, .pdfv, .hero, .aside__credits, .nav-toggle, .nav-overlay, .skip, .foot, .cert-link, .status, .project__badge { display: none !important; }
+    #particles-js, .spotlight, .toc, .aside__actions, .actions, .socials, .verify-link, .links, .cmdk, .pdfv, .hero, .aside__credits, .nav-toggle, .nav-overlay, .skip, .cert-link, .status, .project__badge { display: none !important; }
     .shell { display: block; padding: 0; max-width: none; }
     .aside { position: static; display: block; width: auto; padding: 0; overflow: visible; background: none; border: 0; transform: none; visibility: visible; box-shadow: none; }
     .aside__name { margin: 2pt 0 0; font-size: 22pt; }
